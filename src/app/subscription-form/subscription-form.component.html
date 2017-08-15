@@ -1,0 +1,81 @@
+<div class="alert-danger"
+     *ngIf="(email.touched && !email.valid) || (subscriptionLevel.touched && !subscriptionLevel.valid) || (password.touched && !password.valid)">
+  You have one or more errors with this form. Please review and fix them before submitting.
+</div>
+<form (ngSubmit)="onSubscriptionFormSubmit()" #subscriptionForm="ngForm">
+  <div class="row form-group">
+    <div class="col-xs-12">
+      <label for="email">Email:</label>
+      <input type="text"
+             id="email"
+             name="email"
+             email
+             [(ngModel)]="formSubmission.email"
+             ngFormGroup
+             required
+             #email="ngModel"
+             class="form-control">
+      <div class="help-block" *ngIf="email.touched && !email.valid">
+        You must provide a valid email.
+      </div>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-xs-12">
+      <label for="subscriptionLevel">Subscription level:</label>
+      <select class="form-control"
+              name="subscriptionLevel"
+              id="subscriptionLevel"
+              [(ngModel)]="formSubmission.subscriptionLevel"
+              ngFormGroup
+              required
+              #subscriptionLevel="ngModel">
+        <option *ngFor="let sLevel of subscriptionLevels" [value]=sLevel>{{ sLevel }}</option>
+      </select>
+
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-xs-12">
+      <label for="password">Password: </label>
+      <input class="form-control"
+             type="password"
+             id="password"
+             name="password"
+             [(ngModel)]="formSubmission.password"
+             ngFormGroup
+             required
+             #password="ngModel">
+      <div class="help-block" *ngIf="password.touched && !password.valid">
+        You must provide a password.
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group mt-2">
+      <div class="col-xs-12">
+        <button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+
+</form>
+<div class="row" *ngIf="formHasBeenSubmitted">
+  <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-12">
+          <b>Email:</b> {{submittedData.email}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+        <b>Subscription Level:</b> {{submittedData.subscriptionLevel}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+        <b>Password Level:</b> {{submittedData.password}}
+        </div>
+      </div>
+  </div>
+</div>
